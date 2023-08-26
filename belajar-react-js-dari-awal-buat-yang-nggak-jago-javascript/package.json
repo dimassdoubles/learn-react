@@ -1,0 +1,14 @@
+{
+  "name": "belajar-react-js-dari-awal-buat-yang-nggak-jago-javascript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.11",
+    "@babel/preset-react": "^7.22.5"
+  },
+  "scripts": {
+    "build": "babel src --out-dir public"
+  }
+}
