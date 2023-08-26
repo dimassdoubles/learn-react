@@ -23,7 +23,28 @@ function MyComponent() {
     return <h1>{state}</h1>
 }
 
-const element = <MyComponent/>;
+function MyCounter() {
+    // const state = React.useState(0); 
+    
+    // const count = state[0];
+    // const updateCount = state[1];
+    
+    // karena useState mengembalikan array
+    // untuk membuat state bisa juga menggunakan 
+    // konsep destructuring array
+    const [count, setCount] = React.useState(0);
+
+    return (
+        <>
+            <button onClick={setCount.bind(this, count-1)}>-</button>
+            <span> {count} </span>
+            <button onClick={setCount.bind(this, count+1)}>+</button>
+        </>
+    );
+
+}
+
+const element = <MyCounter/>;
 
 
 root.render(element);
