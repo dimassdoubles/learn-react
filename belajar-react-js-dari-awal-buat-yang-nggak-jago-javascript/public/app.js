@@ -9,5 +9,17 @@ function Welcome() {
     style: welcomeStyle
   }, "Hello World!");
 }
-const element = /*#__PURE__*/React.createElement(Welcome, null);
+const sayHello = () => console.log("Hello World!");
+const sebutNamaku = namaku => alert(namaku);
+function MyButton() {
+  // return <button onClick={function() {sebutNamaku("bento")}}>Say Hello</button>
+  return /*#__PURE__*/React.createElement("button", {
+    onClick: sebutNamaku.bind(this, "bento")
+  }, "Say Hello");
+}
+function MyComponent() {
+  const state = React.useState(1);
+  return /*#__PURE__*/React.createElement("h1", null, state);
+}
+const element = /*#__PURE__*/React.createElement(MyComponent, null);
 root.render(element);
