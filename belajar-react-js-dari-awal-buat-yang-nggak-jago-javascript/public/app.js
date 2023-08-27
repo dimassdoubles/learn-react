@@ -88,8 +88,57 @@ const root = ReactDOM.createRoot(container);
 // ===== CONDITIONAL RENDERING
 // =====
 
+// function App() {
+
+//     const [login, setLogin] = React.useState(false);
+
+//     // if (login) {
+//     //     return (
+//     //         <>
+//     //             <h1>Udah login, Bang</h1>
+//     //             <button onClick={function() {
+//     //                 setLogin(false );
+//     //             }}>Logoout</button>
+//     //         </>
+//     //     );
+//     // }
+
+//     return (
+//         <>
+//             <h1>Application</h1>
+//              {login && <h2>Udah login, Bang</h2>}
+//              <button onClick={function() {
+//                 setLogin(!login);
+//              }}>{login ? 'Logout' : 'Login'}</button>
+//         </>
+//     );
+// }
+
+// ===
+// === DOM MANIPULATION
+// ===
+
 function App() {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Login dulu, Bang"), /*#__PURE__*/React.createElement("button", null, "Login"));
+  // React.useEffect(function() {
+  //     const judul = document.getElementById('judul');
+  //     setTimeout(function() {
+  //         judul.textContent = "Aplikasi";
+  //     }, 1000);
+  // }, []);
+
+  // return <h1 id="judul">Application</h1>
+
+  // ==== kode di atas bisa diganti dengan
+  const judulRef = React.useRef(null);
+  React.useEffect(function () {
+    console.log(judulRef);
+    setTimeout(function () {
+      judulRef.current.textContent = "Aplikasi";
+    }, 1000);
+  });
+  return /*#__PURE__*/React.createElement("h1", {
+    ref: judulRef
+  }, "Application");
 }
 const element = /*#__PURE__*/React.createElement(App, null);
 root.render(element);
