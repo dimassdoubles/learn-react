@@ -44,7 +44,32 @@ function MyCounter() {
 
 }
 
-const element = <MyCounter/>;
+// component lifecycle
+function ComponentLifecycle() {
+    const [diklik, setDiklik] = React.useState(false);
+    const [count, setCount] = React.useState(0);
+
+    React.useEffect(function() { // function ini akan dipanggil saat element dirender
+        console.log(document.getElementById('mama'));
+        console.log("Mama aku dirender");
+    }, [count]); // argument kedua, mengatur fungsi akan dipanggil saat state x berubah
+
+
+    return (
+        <>
+            <h1 id="mama">Hello World!</h1>
+            <button onClick={function() {
+                setDiklik(!diklik);
+            }}>Klik aku dong</button>
+            <button onClick={function() {
+                setCount(count + 1);
+            }}>Tambah</button>
+            Nilai saat ini: {count}
+        </>
+    )
+}
+
+const element = <ComponentLifecycle/>;
 
 
 root.render(element);

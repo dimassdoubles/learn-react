@@ -37,5 +37,28 @@ function MyCounter() {
     onClick: setCount.bind(this, count + 1)
   }, "+"));
 }
-const element = /*#__PURE__*/React.createElement(MyCounter, null);
+
+// component lifecycle
+function ComponentLifecycle() {
+  const [diklik, setDiklik] = React.useState(false);
+  const [count, setCount] = React.useState(0);
+  React.useEffect(function () {
+    // function ini akan dipanggil saat element dirender
+    console.log(document.getElementById('mama'));
+    console.log("Mama aku dirender");
+  }, [count]); // argument kedua, mengatur fungsi akan dipanggil saat state x berubah
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", {
+    id: "mama"
+  }, "Hello World!"), /*#__PURE__*/React.createElement("button", {
+    onClick: function () {
+      setDiklik(!diklik);
+    }
+  }, "Klik aku dong"), /*#__PURE__*/React.createElement("button", {
+    onClick: function () {
+      setCount(count + 1);
+    }
+  }, "Tambah"), "Nilai saat ini: ", count);
+}
+const element = /*#__PURE__*/React.createElement(ComponentLifecycle, null);
 root.render(element);
