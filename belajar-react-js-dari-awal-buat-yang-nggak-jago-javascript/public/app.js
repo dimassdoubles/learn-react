@@ -10,11 +10,24 @@ const root = ReactDOM.createRoot(container);
 function App() {
   const [activity, setActivity] = React.useState("");
   const [todoList, setTodoList] = React.useState([]);
+  const [edit, setEdit] = React.useState({});
   function generateId() {
     return Date.now();
   }
-  function addTodoHandler(event) {
+  function editTodoHandler(todo) {
+    console.log(todo);
+    setActivity(todo.activity);
+  }
+  function saveTodoHandler(event) {
     event.preventDefault();
+    console.log("Disimpan, mak");
+    if (edit.id) {
+      editTodoHandler(edit);
+    } else {
+      addTodoHandler();
+    }
+  }
+  function addTodoHandler() {
     console.log({
       activity
     });
@@ -23,8 +36,10 @@ function App() {
     });
     setTodoList([...todoList, {
       id: generateId(),
-      activity: activity
+      // activity: activity,
+      activity // outputnya akan sama dengan kode di atas
     }]);
+
     console.log({
       todoList
     });
@@ -38,7 +53,7 @@ function App() {
     console.log(todoList);
   }
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Simple Todo List"), /*#__PURE__*/React.createElement("form", {
-    onSubmit: addTodoHandler
+    onSubmit: saveTodoHandler
   }, /*#__PURE__*/React.createElement("input", {
     type: "text",
     placeholder: "Nama aktifitas",
@@ -48,10 +63,12 @@ function App() {
     }
   }), /*#__PURE__*/React.createElement("button", {
     type: "submit"
-  }, "Tambah")), /*#__PURE__*/React.createElement("ul", null, todoList.map(function (item) {
+  }, edit.id ? "Simpan" : "Tambah")), /*#__PURE__*/React.createElement("ul", null, todoList.map(function (item) {
     return /*#__PURE__*/React.createElement("li", {
       key: item.id
     }, item.activity, /*#__PURE__*/React.createElement("button", {
+      onClick: editTodoHandler.bind(this, item)
+    }, "Edit"), /*#__PURE__*/React.createElement("button", {
       onClick: removeTodoHandler.bind(this, item.id)
     }, "Hapus"));
   })));
