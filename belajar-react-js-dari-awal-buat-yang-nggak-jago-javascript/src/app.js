@@ -17,10 +17,36 @@ function App() {
         return Date.now();
     }
 
-    function editTodoHandler(todo) {
-        console.log(todo);
+    function editButtonDiklik(todo) {
         setActivity(todo.activity);
+        setEdit(todo);
 
+    }
+
+    function editTodoHandler() {
+        console.log("Diedit, mak");
+        const updatedTodo = {
+            id: edit.id,
+            activity,
+        }
+        console.log(updatedTodo);
+
+        const updatedIndex = todoList.findIndex(function(todo) {
+            return todo.id == edit.id;
+        });
+        console.log(updatedIndex);
+
+        const updatedTodoList = [...todoList];
+        updatedTodoList[updatedIndex] = updatedTodo;
+        setTodoList(updatedTodoList);
+        setEdit({});
+        setActivity('');
+    }
+
+    function cancelEditHandler() {
+        console.log("Cancel edit mak");
+        setActivity('');
+        setEdit({});
     }
 
     function saveTodoHandler(event) {
@@ -29,13 +55,17 @@ function App() {
         console.log("Disimpan, mak");
         
         if (edit.id) {
-            editTodoHandler(edit);
-        } else {
-            addTodoHandler();
-        }
+            editTodoHandler();
+
+            return;
+        }    
+
+        addTodoHandler();
+        
     }
 
     function addTodoHandler() {
+        console.log("Ditambah, mak");
         console.log({activity});
         console.log({todoList});
 
@@ -56,6 +86,8 @@ function App() {
 
         setTodoList(filteredTodos);
         console.log(todoList);
+        
+        edit.id && cancelEditHandler();
     }
 
     return (
@@ -68,6 +100,7 @@ function App() {
                 <button type="submit">
                     {edit.id ?  "Simpan" : "Tambah"}
                 </button>
+                {edit.id && <button onClick={cancelEditHandler}>Batal edit</button>}
             </form>
 
             <ul>
@@ -75,7 +108,7 @@ function App() {
                     return (
                         <li key={item.id}>
                             {item.activity} 
-                            <button onClick={editTodoHandler.bind(this, item)}>Edit</button>
+                            <button onClick={editButtonDiklik.bind(this, item)}>Edit</button>
                             <button onClick={removeTodoHandler.bind(this, item.id)}>Hapus</button>
                         </li> 
                     );
