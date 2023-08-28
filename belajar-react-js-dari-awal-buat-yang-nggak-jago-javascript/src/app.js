@@ -38,11 +38,14 @@ function App() {
     return (
         <>
             <div>Data Fetch</div>
-            <ul>
-                {news.map(function(item) {
-                    return <li key={item.id}>{item.title}</li>;
-                })}
-            </ul>
+            {loading && <i>Loading data .....</i>}
+            {!loading && 
+                <ul>
+                    {news.map(function(item) {
+                        return <li key={item.id}>{item.title}</li>
+                    })}
+                </ul>
+            }
         </> 
     );
 

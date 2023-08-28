@@ -30,7 +30,7 @@ function App() {
     }
     getData();
   }, []);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", null, "Data Fetch"), /*#__PURE__*/React.createElement("ul", null, news.map(function (item) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", null, "Data Fetch"), loading && /*#__PURE__*/React.createElement("i", null, "Loading data ....."), !loading && /*#__PURE__*/React.createElement("ul", null, news.map(function (item) {
     return /*#__PURE__*/React.createElement("li", {
       key: item.id
     }, item.title);
