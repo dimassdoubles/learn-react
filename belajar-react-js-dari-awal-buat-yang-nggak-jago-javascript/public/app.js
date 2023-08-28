@@ -2,37 +2,20 @@ const container = document.querySelector("#root");
 const root = ReactDOM.createRoot(container);
 
 // ===
-// === REACT FORM
+// === DATA FETCH
 // ===
 
+// https://api.spaceflightnewsapi.net/v3/blogs
+
 function App() {
-  // const namaRef = React.useRef(null); => uncontrolled component
-
-  const [nama, setNama] = React.useState('Dimas Saputro');
-  function ketikaSubmit(event) {
-    event.preventDefault(); // mencegah pindah halaman ketika form di submit
-    console.log("Aku disubmit, mama");
-
-    // const nama = namaRef.current.value;
-    // console.log("Namaku: ", nama);
-
-    console.log({
-      nama
+  React.useEffect(function () {
+    const getData = fetch('https://api.spaceflightnewsapi.net/v3/blogs').then(function (response) {
+      console.log(typeof response);
+      console.log(response);
     });
-  }
-  return /*#__PURE__*/React.createElement("form", {
-    onSubmit: ketikaSubmit
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", null, "Nama: "), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    name: "nama",
-    value: nama,
-    onChange: function (event) {
-      console.log(event.target.value);
-      setNama(event.target.value);
-    }
-  })), /*#__PURE__*/React.createElement("button", {
-    type: "submit"
-  }, "Kirim"));
+    console.log(getData);
+  }, []);
+  return /*#__PURE__*/React.createElement("div", null, "Data Fetch");
 }
 const element = /*#__PURE__*/React.createElement(App, null);
 root.render(element);
