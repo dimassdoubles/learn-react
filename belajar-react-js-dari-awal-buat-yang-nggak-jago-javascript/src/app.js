@@ -9,44 +9,34 @@ const root = ReactDOM.createRoot(container);
 
 function App() {
 
-    const [news, setNews] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
+    const [activity, setActivity] = React.useState("");
+    const [todoList, setTodoList] = React.useState([]);
 
-    React.useEffect(function() {
-        // const getData = fetch(('https://api.spaceflightnewsapi.net/v3/blogs').then(
-        //     function(response) {
-        //         return response.json();
-        //     }
-        // ).then(function(json) {
-        //     console.log(json);
-        // });
-        // console.log(getData);
+    function addTodoHandler(event) {
+        event.preventDefault();
+        console.log({activity});
+        console.log({todoList});
 
-        async function getData() {
-            const request = await fetch('https://api.spaceflightnewsapi.net/v3/blogs');
-            console.log(request);
-
-            const response = await request.json();
-            console.log(response);
-
-            setNews(response);
-            setLoading(false);
-        }
-        getData();
-    }, []);
+        setTodoList([...todoList, activity]);
+        console.log({todoList});
+    }
 
     return (
         <>
-            <div>Data Fetch</div>
-            {loading && <i>Loading data .....</i>}
-            {!loading && 
-                <ul>
-                    {news.map(function(item) {
-                        return <li key={item.id}>{item.title}</li>
-                    })}
-                </ul>
-            }
-        </> 
+            <h1>Simple Todo List</h1>
+            <form onSubmit={addTodoHandler}>
+                <input type="text" placeholder="Nama aktifitas" onChange={function(event) {
+                    setActivity(event.target.value);
+                }}></input>
+                <button type="submit">Tambah</button>
+            </form>
+
+            <ul>
+                {todoList.map(function(item) {
+                    return <li key={item}>{item}</li>
+                })}
+            </ul>
+        </>
     );
 
 }
