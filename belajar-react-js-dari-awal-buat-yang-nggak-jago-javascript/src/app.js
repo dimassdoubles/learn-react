@@ -27,7 +27,7 @@ function App() {
     function editTodoHandler() {
         console.log("Diedit, mak");
         const updatedTodo = {
-            id: edit.id,
+            ...edit,
             activity,
         }
         console.log(updatedTodo);
@@ -123,8 +123,8 @@ function App() {
                     {todoList.map(function(item) {
                         return (
                             <li key={item.id}>
-                                <input nput type="checkbox" onChange={doneTodoHandler.bind(this, item)}></input>
-                                {item.activity} {item.done && " (Selesai)"}
+                                <input type="checkbox" checked={item.done} onChange={doneTodoHandler.bind(this, item)}></input>
+                                {item.activity} {item.done ? " (Selesai)" : " (Belum selesai)"}
                                 <button onClick={editButtonDiklik.bind(this, item)}>Edit</button>
                                 <button onClick={removeTodoHandler.bind(this, item.id)}>Hapus</button>
                             </li> 

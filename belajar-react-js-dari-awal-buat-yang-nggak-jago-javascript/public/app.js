@@ -22,7 +22,7 @@ function App() {
   function editTodoHandler() {
     console.log("Diedit, mak");
     const updatedTodo = {
-      id: edit.id,
+      ...edit,
       activity
     };
     console.log(updatedTodo);
@@ -106,10 +106,10 @@ function App() {
     return /*#__PURE__*/React.createElement("li", {
       key: item.id
     }, /*#__PURE__*/React.createElement("input", {
-      nput: true,
       type: "checkbox",
+      checked: item.done,
       onChange: doneTodoHandler.bind(this, item)
-    }), item.activity, " ", item.done && " (Selesai)", /*#__PURE__*/React.createElement("button", {
+    }), item.activity, " ", item.done ? " (Selesai)" : " (Belum selesai)", /*#__PURE__*/React.createElement("button", {
       onClick: editButtonDiklik.bind(this, item)
     }, "Edit"), /*#__PURE__*/React.createElement("button", {
       onClick: removeTodoHandler.bind(this, item.id)
