@@ -12,6 +12,7 @@ function App() {
     const [activity, setActivity] = React.useState("");
     const [todoList, setTodoList] = React.useState([]);
     const [edit, setEdit] = React.useState({});
+    const [message, setMessage] = React.useState("");
 
     function generateId() {
         return Date.now();
@@ -51,9 +52,11 @@ function App() {
 
     function saveTodoHandler(event) {
         event.preventDefault();
+        if (!activity) {
+            return setMessage("Nama aktifitas jangan kosong!");
+        }
+        setMessage("");
 
-        console.log("Disimpan, mak");
-        
         if (edit.id) {
             editTodoHandler();
 
@@ -64,15 +67,25 @@ function App() {
         
     }
 
-    function addTodoHandler() {
-        console.log("Ditambah, mak");
-        console.log({activity});
-        console.log({todoList});
+    function doneTodoHandler(todo) {
+        const editedTodoList = [...todoList];
+        const editedIndex = todoList.findIndex(function(item) {
+            return item.id == todo.id;
+        })
+        editedTodoList[editedIndex] = {
+            ...todo, 
+            done: !todo.done,
+        }
 
+        setTodoList(editedTodoList);
+    }
+
+    function addTodoHandler() {
         setTodoList([...todoList, {
             id: generateId(),
             // activity: activity,
             activity, // outputnya akan sama dengan kode di atas
+            done: false,
         }]);
         console.log({todoList});
         
@@ -93,6 +106,7 @@ function App() {
     return (
         <>
             <h1>Simple Todo List</h1>
+            {message && <div style={{color: "red"}}>{message}</div>}
             <form onSubmit={saveTodoHandler}>
                 <input type="text" placeholder="Nama aktifitas" value={activity} onChange={function(event) {
                     setActivity(event.target.value);
@@ -103,17 +117,26 @@ function App() {
                 {edit.id && <button onClick={cancelEditHandler}>Batal edit</button>}
             </form>
 
-            <ul>
-                {todoList.map(function(item) {
-                    return (
-                        <li key={item.id}>
-                            {item.activity} 
-                            <button onClick={editButtonDiklik.bind(this, item)}>Edit</button>
-                            <button onClick={removeTodoHandler.bind(this, item.id)}>Hapus</button>
-                        </li> 
-                    );
-                })}
-            </ul>
+            {todoList.length > 0 ? 
+            (
+                <ul>
+                    {todoList.map(function(item) {
+                        return (
+                            <li key={item.id}>
+                                <input nput type="checkbox" onChange={doneTodoHandler.bind(this, item)}></input>
+                                {item.activity} {item.done && " (Selesai)"}
+                                <button onClick={editButtonDiklik.bind(this, item)}>Edit</button>
+                                <button onClick={removeTodoHandler.bind(this, item.id)}>Hapus</button>
+                            </li> 
+                        );
+                    })}
+                </ul>
+            )
+                :
+            (
+                <p><i>Tidak ada todo</i></p>
+            )
+            }
         </>
     );
 
