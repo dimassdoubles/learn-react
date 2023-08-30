@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Welcome, {WelcomeH2} from './Welcome';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         >
           Learn React
         </a>
+        <Welcome children="Welcome 1" />
+        <Welcome children="Welcome 2" />
+        <WelcomeH2>Hallo Anjay</WelcomeH2>
       </header>
     </div>
   );
